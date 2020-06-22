@@ -9,7 +9,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -26,31 +25,13 @@ public class NetworkMonitor extends BroadcastReceiver
     @Override
     public void onReceive(final Context context, Intent intent)
     {
-
-        final ConnectivityManager connMgr = (ConnectivityManager) context
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        final android.net.NetworkInfo wifi = connMgr
-                .getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-
-        final android.net.NetworkInfo mobile = connMgr
-                .getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-
-        if (wifi.isAvailable() || mobile.isAvailable())
-        {
-
-            Log.d("Network Available ", "Flag No 1");
-        }
         if(checkNetworkConnection(context))
         {
-            Toast.makeText(context, "in network", Toast.LENGTH_SHORT).show();
             final DatabaseHelper helper=new DatabaseHelper(context);
             SQLiteDatabase sqLiteDatabase=helper.getReadableDatabase();
             final Cursor c=sqLiteDatabase.rawQuery("select * from contact where sync_status=0",null);
-            //Log.d("cursor",c.getString(1));
             while(c.moveToNext())
             {
-
                 final String name=c.getString(c.getColumnIndex("name"));
                 final int id=c.getInt(c.getColumnIndex("id"));
                 Log.d("c",name);

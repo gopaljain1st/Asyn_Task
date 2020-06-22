@@ -100,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
     {
          if(checkNetworkConnection())
         {
-            Toast.makeText(this, "coonection", Toast.LENGTH_SHORT).show();
             String url="https://inventivepartner.com/Inventive_fruits/addSyncContact.php";
             StringRequest stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                 @Override
